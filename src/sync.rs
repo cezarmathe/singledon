@@ -1,6 +1,6 @@
 //! Sync singletons
 
-/// A singleton.
+/// A sync singleton.
 pub trait Singleton {
     /// Inner value contained by the singleton.
     type Inner;
@@ -13,32 +13,32 @@ pub trait Singleton {
     fn init_singleton(inner: Self::Inner);
 
     /// Use the singleton with an immutable reference.
-    // F: Function to be run.
-    // R: Function result.
-    fn use_singleton<F, R>(clojure: F) -> R
+    // Func: Function to be run.
+    // Ret: Function result.
+    fn use_singleton<Func, Return>(func: Func) -> Return
     where
-        F: FnOnce(&Self::Inner) -> R;
+        Func: FnOnce(&Self::Inner) -> Return;
 
     /// Use the singleton with an immutable reference and an argument.
-    // F: Function to be run.
-    // A: Function argument.
-    // R: Function result.
-    fn use_singleton_with_arg<F, A, R>(clojure: F, arg: A) -> R
+    // Func: Function to be run.
+    // Arg: Function argument.
+    // Ret: Function result.
+    fn use_singleton_with_arg<Func, Arg, Ret>(clojure: Func, arg: Arg) -> Ret
     where
-    F: FnOnce(&Self::Inner, A) -> R;
+        Func: FnOnce(&Self::Inner, Arg) -> Ret;
 
     /// Use the singleton with a mutable reference.
-    // F: Function to be run.
-    // R: Function result.
-    fn use_mut_singleton<F, R>(clojure: F) -> R
+    // Func: Function to be run.
+    // Ret: Function result.
+    fn use_mut_singleton<Func, Ret>(clojure: Func) -> Ret
     where
-        F: FnOnce(&mut Self::Inner) -> R;
+        Func: FnOnce(&mut Self::Inner) -> Ret;
 
     /// Use the singleton with an immutable reference and an argument.
-    // F: Function to be run.
-    // A: Function argument.
-    // R: Function result.
-    fn use_mut_singleton_with_arg<F, A, R>(clojure: F, arg: A) -> R
+    // Func: Function to be run.
+    // Arg: Function argument.
+    // Ret: Function result.
+    fn use_mut_singleton_with_arg<Func, Arg, Ret>(clojure: Func, arg: Arg) -> Ret
     where
-        F: FnOnce(&mut Self::Inner, A) -> R;
+        Func: FnOnce(&mut Self::Inner, Arg) -> Ret;
 }
